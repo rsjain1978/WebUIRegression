@@ -28,30 +28,12 @@ module.exports = function(grunt) {
       tests: ['tmp']
     },
 
-    // Configuration to be run (and then tested).
-    //web_regression: {
-    //  default_options: {
-    //    options: {
-    //    },
-    //    files: {
-    //      'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-    //    }
-    //  },
-    //  custom_options: {
-    //    options: {
-    //      separator: ': ',
-    //      punctuation: ' !!!'
-    //    },
-    //    files: {
-    //      'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-    //    }
-    //  }
-    //},
+
 
     web_regression: {
-      default_options: {
+      options: {
         "url": "https://www.google.co.in",
-        "scriptfile": "./scripts/test/googlecode.js",
+        "scriptfile": "./scripts/googlecode.js",
         "testname": "Google",
         "browser": "Chrome",
         "casperOptions": ["--ignore-ssl-errors=true", "--ssl-protocol=any"],

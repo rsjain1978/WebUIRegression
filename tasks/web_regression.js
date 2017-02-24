@@ -8,50 +8,29 @@
 
 'use strict';
 
+var runcasper = require('./runcasper');
+
 module.exports = function(grunt) {
-
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
-
-  //grunt.registerMultiTask('web_regression', 'Grunt Plugin to run CasperJS based tests for web regression, and thereafter compare results to identify ui mismatch', function() {
-  //  // Merge task-specific and/or target-specific options with these defaults.
-  //  var options = this.options({
-  //    punctuation: '.',
-  //    separator: ', '
-  //  });
-  //
-  //  // Iterate over all specified file groups.
-  //  this.files.forEach(function(f) {
-  //    // Concat specified files.
-  //    var src = f.src.filter(function(filepath) {
-  //      // Warn on and remove invalid source files (if nonull was set).
-  //      if (!grunt.file.exists(filepath)) {
-  //        grunt.log.warn('Source file "' + filepath + '" not found.');
-  //        return false;
-  //      } else {
-  //        return true;
-  //      }
-  //    }).map(function(filepath) {
-  //      // Read file source.
-  //      return grunt.file.read(filepath);
-  //    }).join(grunt.util.normalizelf(options.separator));
-  //
-  //    // Handle options.
-  //    src += options.punctuation;
-  //
-  //    // Write the destination file.
-  //    grunt.file.write(f.dest, src);
-  //
-  //    // Print a success message.
-  //    grunt.log.writeln('File "' + f.dest + '" created.');
-  //  });
-  //});
 
   grunt.registerTask('web_regression', 'web ui regression reference creation', function () {
     var options = this.options();
+    var done = this.async();
+    //grunt.log.write('web_regression.js.55() ----> options : ', options, '\n');
+    var imagepath = options.imageDirectory + options.browser; //TODO: add testname in the path
+    var launchOptions = options.casperOptions.concat(["--testname=" + options.testname, "--mode=reference", "--browser=" + options.browser,
+      "--url=" + options.url, "--script=" + options.scriptfile, "casperStarter.js"]);
+    //grunt.log.write('web_regression.js.59() ----> launchOptions : ', launchOptions, '\n');
 
-    console.log('web_regression.() ----> options: ', options);
+    console.log('runcasper.runcasper() ----> grunt.cwd: ', process.cwd());
 
+    runcasper.run(grunt, launchOptions, function(error){
+      // done();
+      if(error===0) {
+        done();
+      } else {
+        done(false);
+      }
+    });
   });
 
 };

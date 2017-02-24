@@ -7,7 +7,13 @@
   "noarg": true,
   "sub": true,
   "undef": true,
+  "unused": false,
   "boss": true,
   "eqnull": true,
-  "node": true
+  "node": true,
+  "nonew": false,
+  "phantom": true,
+  "globals": {
+    "casper": false
+  }
 }
